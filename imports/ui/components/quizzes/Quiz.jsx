@@ -13,6 +13,7 @@ class Quiz extends Component {
             correctAnswer: '',
             correctAnswersCount: 0,
             wrongAnswersCount: 0,
+            
         }
     }
 
@@ -40,30 +41,45 @@ class Quiz extends Component {
         this.setState({
             questionIndex: this.state.questionIndex + 1,
             msg: '',
-            correctAnswer: ''
+            correctAnswer: '',
+            context: '',
         });
     }
 
     renderQuizWords() {
         let index = this.state.questionIndex,
-            words = this.props.words;
-        if (index <words.length) {
+            words = this.props.words,
+            context = this.state.context;
+
+        if (index < words.length) {
             return (
                 <Form inline>
                     <FormGroup controlId="formInlineEmail">
                         <ControlLabel>{words[index].translation}</ControlLabel>
                         {' - '}
                         <input className="form-control" type="text" ref="answer" placeholder="Write translation"/>
+                    <span>{this.state.context}</span> 
                     </FormGroup>
+
                     <Button onClick={this.checkAnswer.bind(this)}>
                         Check
                     </Button>
-                    <Button onClick={this.nextWord.bind(this)}>
+
+                    <Button onmouseover={this.checkAnswer.bind(this)} onClick={this.nextWord.bind(this)}>
                         Next
                     </Button>
+                    
                     <span>{this.state.msg + ' '}</span>
-                    <span>{this.state.correctAnswer}</span>
+                    <span>{this.state.correctAnswer}</span> 
+                    <h1>{this.state.context}</h1>
+                    
+                     <span>{words[index].context}</span>
+              
+                                     
                 </Form>
+
+            
+
             )
         } else {
             return (

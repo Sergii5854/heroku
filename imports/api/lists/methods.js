@@ -4,6 +4,7 @@ import {Dictionaries, Words} from "../models";
 import {check} from "meteor/check";
 
 Meteor.methods({
+    
     'user.create'(user){
         check(user, {
             username: String,
@@ -112,6 +113,7 @@ Meteor.methods({
             transcription: String,
             translation: String,
             context: Match.Maybe(String),
+            
         });
 
         check(synonyms, Array);
@@ -123,6 +125,7 @@ Meteor.methods({
                 synonymsWithId.push({
                     _id: item._id,
                     spell: item.spell,
+                    context: item.context,
                 })
             });
             word.synonyms = synonymsWithId || [];
@@ -191,6 +194,7 @@ Meteor.methods({
         csvConverter.fromString(csv, function (err, jsonObj) {
             if (err) {
                 Meteor.Error(err)
+                console.log("ERR ");
             }
         });
     }
